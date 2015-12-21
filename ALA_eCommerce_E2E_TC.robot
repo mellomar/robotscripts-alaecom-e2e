@@ -10,7 +10,6 @@ ${var_email1}     prometqa30051@prometsource.com
 
 *** Test Cases ***
 TEST
-<<<<<<< HEAD
 
 Rejoin as Organization
     Go To Rejoin And Login    https://ala-shop.prometstaging.com/membership/renew    firefox    0002112    ectest
@@ -26,12 +25,6 @@ Rejoin as Personal Member
 
 Join as Personal Member - Regular
     Go To Join and Enter New Email    ${var_url}    firefox    mellomar121@prometsource.com
-=======
-    \    https://ala-shop.prometstaging.com/membership/renew    firefox    1144377    ectest
-
-Join as Personal Member - Regular
-    Go To Join and Enter New Email    ${var_url}    firefox    mellomar117@prometsource.com
->>>>>>> d5d5c7034b38b4b52588a91d4b6c09cda6bc3e4c
     Select Membership Type    Personal    Regular Member
     Fill Contact Information And Submit    Mellomar    Otarra    1z2x3c*()
     Fill Address Information And Submit    50 E. Huron St.    Chicago    Illinois    60611
@@ -43,11 +36,7 @@ Join as Personal Member - Regular
     Take Survey and Submit
 
 Join as Personal Member - Student
-<<<<<<< HEAD
     Go To Join and Enter New Email    ${var_url}    firefox    mellomar220@prometsource.com
-=======
-    Go To Join and Enter New Email    ${var_url}    firefox    mellomar216@prometsource.com
->>>>>>> d5d5c7034b38b4b52588a91d4b6c09cda6bc3e4c
     Select Membership Type    Personal    Student Member
     Fill Contact Information And Submit    Mellomar    Otarra    1z2x3c*()
     Fill Address Information And Submit    50 E. Huron St.    Chicago    Illinois    60611
@@ -60,10 +49,6 @@ Join as Personal Member - Student
 
 Regular Member Renew
     [Setup]
-<<<<<<< HEAD
-=======
-    SETUP BROWSER    https://ala-shop.prometstaging.com/membership/renew    firefox
->>>>>>> d5d5c7034b38b4b52588a91d4b6c09cda6bc3e4c
     Wait Until Page Contains    Renew ALA    15
     Wait Until Page Contains Element    shib_login_url
     Click Element    shib_login_url
@@ -92,10 +77,6 @@ Regular Member Renew
     [Teardown]    Close Browser
 
 Student Member Renew
-<<<<<<< HEAD
-=======
-    SETUP BROWSER    https://ala-shop.prometstaging.com/membership/renew    firefox
->>>>>>> d5d5c7034b38b4b52588a91d4b6c09cda6bc3e4c
     Wait Until Page Contains    Renew ALA    15
     Wait Until Page Contains Element    shib_login_url
     Click Element    shib_login_url
@@ -248,11 +229,7 @@ Select Round Table And Submit
     : FOR    ${round_table}    IN    @{round_tables}
     \    Click Element    xpath=//h2[contains(text(),'${round_table}')]
     Click Button    edit-return
-<<<<<<< HEAD
     Comment    Wait Until Page Contains    Step 7: Checkout
-=======
-    Wait Until Page Contains    Step 7: Checkout
->>>>>>> d5d5c7034b38b4b52588a91d4b6c09cda6bc3e4c
     Wait Until Page Contains    Here is your Membership Summary:
     Wait Until Page Contains    Would you like to help support libraries and give a gift to ALA today?
 
@@ -268,11 +245,7 @@ Checkout and Submit
     Click Element    xpath=//div[@class='dropdown-menu open']//span[contains(text(),'${exp_yr}')]
     Input Text    edit-commerce-payment-payment-details-credit-card-code    ${sec_code}
     Click Element    edit-continue
-<<<<<<< HEAD
     Comment    Wait Until Page Contains    Step 7: Checkout
-=======
-    Wait Until Page Contains    Step 7: Checkout
->>>>>>> d5d5c7034b38b4b52588a91d4b6c09cda6bc3e4c
     Wait Until Page Contains    Your order number is
     Wait Until Page Contains    on your account page when logged in.
     Wait Until Element Is Visible    //div[@id='edit-ala-commerce-survey']/a[contains(text(),'Continue to membership survey')]
@@ -299,7 +272,6 @@ Go To Renew And Login
     Input Text    username    ${login}
     Input Password    password    ${password}
     Submit Form
-<<<<<<< HEAD
     Wait Until Page Contains    Renew your ALA membership
     Wait Until Page Contains Element    xpath=//div[@class='membership-renew-link']/a
     Click Element    xpath=//div[@class='membership-renew-link']/a
@@ -371,7 +343,3 @@ Rejoin Payment
     Wait Until Page Contains    Your order number is
     Wait Until Element Is Visible    xpath=//a[contains(text(),'Return to the front page.')]
     Wait Until Element Is Visible    xpath=//a[contains(text(),'Continue to membership survey')]
-=======
-    Wait Until Page Contains    Renew your ALA membership:
-    Wait Until Page Contains Element    xpath=//div[@class='membership-renew-link']
->>>>>>> d5d5c7034b38b4b52588a91d4b6c09cda6bc3e4c
