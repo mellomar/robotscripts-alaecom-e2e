@@ -9,9 +9,8 @@ ${var_email}      prometqa360@prometsource.com
 ${var_email1}     prometqa30051@prometsource.com
 
 *** Test Cases ***
-TEST
-
 Rejoin as Organization
+    [Setup]
     Go To Rejoin And Login    https://ala-shop.prometstaging.com/membership/renew    firefox    0002112    ectest
     Express Renew Organization
     Rejoin Payment    10    Test Test    4111111111111111    12    18    123
@@ -24,7 +23,7 @@ Rejoin as Personal Member
     [Teardown]
 
 Join as Personal Member - Regular
-    Go To Join and Enter New Email    ${var_url}    firefox    mellomar121@prometsource.com
+    Go To Join and Enter New Email    ${var_url}    firefox    mellomar126@prometsource.com
     Select Membership Type    Personal    Regular Member
     Fill Contact Information And Submit    Mellomar    Otarra    1z2x3c*()
     Fill Address Information And Submit    50 E. Huron St.    Chicago    Illinois    60611
@@ -34,9 +33,10 @@ Join as Personal Member - Regular
     Select Round Table And Submit    New Member Round Table    Exhibits Round Table    Ethnic and Multicultural Information Exchange Round Table    Library Research Round Table    Library History Round Table
     Checkout And Submit    10    Test Test    4111111111111111    12    18    123
     Take Survey and Submit
+    [Teardown]
 
 Join as Personal Member - Student
-    Go To Join and Enter New Email    ${var_url}    firefox    mellomar220@prometsource.com
+    Go To Join and Enter New Email    ${var_url}    firefox    mellomar225@prometsource.com
     Select Membership Type    Personal    Student Member
     Fill Contact Information And Submit    Mellomar    Otarra    1z2x3c*()
     Fill Address Information And Submit    50 E. Huron St.    Chicago    Illinois    60611
@@ -46,66 +46,11 @@ Join as Personal Member - Student
     Select Round Table And Submit    New Member Round Table    Exhibits Round Table    Ethnic and Multicultural Information Exchange Round Table    Library Research Round Table    Library History Round Table
     Checkout And Submit    10    Test Test    4111111111111111    12    18    123
     Take Survey and Submit
+    [Teardown]
 
-Regular Member Renew
-    [Setup]
-    Wait Until Page Contains    Renew ALA    15
-    Wait Until Page Contains Element    shib_login_url
-    Click Element    shib_login_url
-    Wait Until Page Contains    Test IDP Login to the ALA Website    15
-    Wait Until Page Contains Element    username
-    Input Text    username    1061117
-    Input Password    password    ectest
-    Submit Form
-    Wait Until Page Contains    Renew your ALA membership:    15
-    Wait Until Page Contains Element    xpath=//div[@class='membership-renew-link']
-    Click Element    xpath=//div[@class='membership-renew-link']/a[contains(text(),'Renew')]
-    Wait Until Page Contains    Here is your Membership Summary:
-    Wait Until Page Contains Element    edit-next
-    Click Button    edit-next
-    Wait Until Page Contains    Your Contact Information
-    Wait Until Page Contains Element    edit-next
-    Click Button    edit-next
-    Wait Until Page Contains    Here is your Membership Summary:
-    Input Text    edit-commerce-payment-payment-details-credit-card-owner    Test Test
-    Input Text    edit-commerce-payment-payment-details-credit-card-number    4111111111111111
-    Click Element    xpath=//div/button/span[contains(text(),'15')]
-    Click Element    xpath=//div[@class='dropdown-menu open']//span[contains(text(),'18')]
-    Input Text    edit-commerce-payment-payment-details-credit-card-code    123
-    Click Element    edit-continue
-    Wait Until Page Contains    Your order number is
-    [Teardown]    Close Browser
-
-Student Member Renew
-    Wait Until Page Contains    Renew ALA    15
-    Wait Until Page Contains Element    shib_login_url
-    Click Element    shib_login_url
-    Wait Until Page Contains    Test IDP Login to the ALA Website    15
-    Wait Until Page Contains Element    username
-    Input Text    username    2058387
-    Input Password    password    ectest
-    Submit Form
-    Wait Until Page Contains    Renew your ALA membership:    15
-    Wait Until Page Contains Element    xpath=//div[@class='membership-renew-link']
-    Click Element    xpath=//div[@class='membership-renew-link']/a[contains(text(),'Renew')]
-    Wait Until Page Contains    Here is your Membership Summary:
-    Wait Until Page Contains Element    edit-next
-    Click Button    edit-next
-    Wait Until Page Contains    Your Contact Information
-    Wait Until Page Contains Element    edit-next
-    Click Button    edit-next
-    Wait Until Page Contains    Here is your Membership Summary:
-    Input Text    edit-commerce-payment-payment-details-credit-card-owner    Test Test
-    Input Text    edit-commerce-payment-payment-details-credit-card-number    4111111111111111
-    Click Element    xpath=//div/button/span[contains(text(),'15')]
-    Click Element    xpath=//div[@class='dropdown-menu open']//span[contains(text(),'18')]
-    Input Text    edit-commerce-payment-payment-details-credit-card-code    123
-    Click Element    edit-continue
-    Wait Until Page Contains    Your order number is
-    [Teardown]    Close Browser
-
-Donate as logged in user
-    SETUP BROWSER    https://ala-shop.prometstaging.com/user    firefox
+Donate as Logged in User
+    Open Browser    https://ala-shop.prometstaging.com/user    firefox
+    Maximize Browser Window
     Wait Until Page Contains    Shibboleth Login    15
     Wait Until Page Contains Element    edit-name
     Click Element    xpath=//div[@id='shib_login_url']/a
@@ -133,19 +78,86 @@ Donate as logged in user
     Click Element    xpath=//a[contains(text(),'DIVISIONS')]
     Wait Until Element Is Visible    xpath=//a[contains(text(),'LLAMA')]
     Click Element    xpath=//a[contains(text(),'LLAMA')]
+    Sleep    0.5
     Wait Until Element Is Visible    xpath=//input[@id='edit-project-123-amount']
     Input Text    xpath=//input[@id='edit-project-123-amount']    25
     Click Element    xpath=//a[contains(text(),'LLAMA')]
-    Sleep    2.5
+    Sleep    5
+    Comment    Wait Until Element Is Not Visible    xpath=//div[@class='ajax-progress ajax-progress-throbber']/i[@class='glyphicon glyphicon-refresh glyphicon-spin']
     Click Button    edit-return
-    Wait Until Page Contains    your cart
+    Wait Until Page Contains    Your Donation Summary
+    Input Text    edit-commerce-payment-payment-details-credit-card-owner    Test Test
+    Input Text    edit-commerce-payment-payment-details-credit-card-number    4111111111111111
+    Click Element    xpath=//div/button/span[contains(text(),'15')]
+    Click Element    xpath=//div[@class='dropdown-menu open']//span[contains(text(),'18')]
+    Input Text    edit-commerce-payment-payment-details-credit-card-code    123
+    Click Button    edit-continue
+    Wait Until Page Contains    Your order number is
+    Wait Until Page Contains Element    xpath=//a[contains(text(),'Return to the front page.')]
+    [Teardown]
+
+Regular Member Renew
+    [Setup]
+    Open Browser    https://ala-shop.prometstaging.com/membership/renew    firefox
+    Maximize Browser Window
+    Wait Until Page Contains    Renew ALA    15
+    Wait Until Page Contains Element    shib_login_url
+    Click Element    shib_login_url
+    Wait Until Page Contains    Test IDP Login to the ALA Website    15
+    Wait Until Page Contains Element    username
+    Input Text    username    1061117
+    Input Password    password    ectest
+    Submit Form
+    Wait Until Page Contains    Renew your ALA membership    15
+    Wait Until Page Contains Element    xpath=//div[@class='membership-renew-link']
+    Click Element    xpath=//div[@class='membership-renew-link']/a[contains(text(),'Renew')]
+    Wait Until Page Contains    Here is your Membership Summary:
+    Wait Until Page Contains Element    edit-next
+    Click Button    edit-next
+    Wait Until Page Contains    Your Contact Information
+    Wait Until Page Contains Element    edit-next
+    Click Button    edit-next
+    Wait Until Page Contains    Here is your Membership Summary:
     Input Text    edit-commerce-payment-payment-details-credit-card-owner    Test Test
     Input Text    edit-commerce-payment-payment-details-credit-card-number    4111111111111111
     Click Element    xpath=//div/button/span[contains(text(),'15')]
     Click Element    xpath=//div[@class='dropdown-menu open']//span[contains(text(),'18')]
     Input Text    edit-commerce-payment-payment-details-credit-card-code    123
     Click Element    edit-continue
-    [Teardown]    Close Browser
+    Wait Until Page Contains    Your order number is
+    [Teardown]
+
+Student Member Renew
+    Wait Until Page Contains    Renew ALA    15
+    Wait Until Page Contains Element    shib_login_url
+    Click Element    shib_login_url
+    Wait Until Page Contains    Test IDP Login to the ALA Website    15
+    Wait Until Page Contains Element    username
+    Input Text    username    2058387
+    Input Password    password    ectest
+    Submit Form
+    Wait Until Page Contains    Renew your ALA membership    15
+    Wait Until Page Contains Element    xpath=//div[@class='membership-renew-link']
+    Click Element    xpath=//div[@class='membership-renew-link']/a[contains(text(),'Renew')]
+    Wait Until Page Contains    Here is your Membership Summary:
+    Wait Until Page Contains Element    edit-next
+    Click Button    edit-next
+    Wait Until Page Contains    Your Contact Information
+    Wait Until Page Contains Element    edit-next
+    Click Button    edit-next
+    Wait Until Page Contains    Here is your Membership Summary:
+    Input Text    edit-commerce-payment-payment-details-credit-card-owner    Test Test
+    Input Text    edit-commerce-payment-payment-details-credit-card-number    4111111111111111
+    Click Element    xpath=//div/button/span[contains(text(),'15')]
+    Click Element    xpath=//div[@class='dropdown-menu open']//span[contains(text(),'18')]
+    Input Text    edit-commerce-payment-payment-details-credit-card-code    123
+    Click Element    edit-continue
+    Wait Until Page Contains    Your order number is
+    [Teardown]
+
+TEST
+    Go To Renew And Login    https://ala-shop.prometstaging.com/membership/renew    firefox    1061117    ectest
+    Express Renew Personal
 
 *** Keywords ***
 CLOSE THIS BROWSER
@@ -246,8 +258,7 @@ Checkout and Submit
     Input Text    edit-commerce-payment-payment-details-credit-card-code    ${sec_code}
     Click Element    edit-continue
     Comment    Wait Until Page Contains    Step 7: Checkout
-    Wait Until Page Contains    Your order number is
-    Wait Until Page Contains    on your account page when logged in.
+    Wait Until Page Contains    Thank you for your payment. Please look for an email confirmation shortly.
     Wait Until Element Is Visible    //div[@id='edit-ala-commerce-survey']/a[contains(text(),'Continue to membership survey')]
 
 Take Survey and Submit
@@ -272,9 +283,13 @@ Go To Renew And Login
     Input Text    username    ${login}
     Input Password    password    ${password}
     Submit Form
-    Wait Until Page Contains    Renew your ALA membership
+    Sleep    2
+    Wait Until Page Contains    Renew your ALA membership    15
     Wait Until Page Contains Element    xpath=//div[@class='membership-renew-link']/a
     Click Element    xpath=//div[@class='membership-renew-link']/a
+    Sleep    2
+    Wait Until Page Contains Element    xpath=//h3[contains(text(),'Step')]/span[contains(text(),':')]
+    Wait Until Page Contains    \ \ \ \ \ Here is your Membership Summary:
 
 Go To Rejoin And Login
     [Arguments]    ${url}    ${browser}    ${login}    ${password}
@@ -288,7 +303,7 @@ Go To Rejoin And Login
     Input Password    password    ${password}
     Submit Form
     Sleep    2
-    Wait Until Page Contains Element    xpath=//div[@class='membership-renew-message']//h2[contains(text(),'Rejoin ALA')]
+    Wait Until Page Contains    Rejoin ALA    15
     Wait Until Page Contains Element    xpath=//div[@class='membership-renew-link']/a[contains(text(),'Rejoin')]
     Click Element    xpath=//div[@class='membership-renew-link']/a[contains(text(),'Rejoin')]
     Wait Until Page Contains Element    xpath=//h3[contains(text(),'Step')]/span[contains(text(),':')]
@@ -340,6 +355,6 @@ Rejoin Payment
     Click Element    xpath=//div[@class='dropdown-menu open']//span[contains(text(),'${exp_yr}')]
     Input Text    edit-commerce-payment-payment-details-credit-card-code    ${sec_code}
     Click Element    edit-continue
-    Wait Until Page Contains    Your order number is
-    Wait Until Element Is Visible    xpath=//a[contains(text(),'Return to the front page.')]
+    Comment    Wait Until Page Contains    Your order number is
+    Comment    Wait Until Element Is Visible    xpath=//a[contains(text(),'Return to the front page.')]
     Wait Until Element Is Visible    xpath=//a[contains(text(),'Continue to membership survey')]
