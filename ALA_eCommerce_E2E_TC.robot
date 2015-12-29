@@ -11,19 +11,19 @@ ${var_email1}     prometqa30051@prometsource.com
 *** Test Cases ***
 Rejoin as Organization
     [Setup]
-    Go To Rejoin And Login    https://ala-shop.prometstaging.com/membership/renew    firefox    0002112    ectest
+    Go To Rejoin And Login    https://ala-shop.prometstaging.com/membership/renew    firefox    0119051    ectest
     Express Renew Organization
     Rejoin Payment    10    Test Test    4111111111111111    12    18    123
     [Teardown]
 
 Rejoin as Personal Member
-    Go To Rejoin And Login    https://ala-shop.prometstaging.com/membership/renew    firefox    0017763    ectest
+    Go To Rejoin And Login    https://ala-shop.prometstaging.com/membership/renew    firefox    1182475    ectest
     Express Renew Personal
     Rejoin Payment    10    Test Test    4111111111111111    12    18    123
     [Teardown]
 
 Join as Personal Member - Regular
-    Go To Join and Enter New Email    ${var_url}    firefox    mellomar126@prometsource.com
+    Go To Join and Enter New Email    ${var_url}    firefox    mellomar131@prometsource.com
     Select Membership Type    Personal    Regular Member
     Fill Contact Information And Submit    Mellomar    Otarra    1z2x3c*()
     Fill Address Information And Submit    50 E. Huron St.    Chicago    Illinois    60611
@@ -36,7 +36,7 @@ Join as Personal Member - Regular
     [Teardown]
 
 Join as Personal Member - Student
-    Go To Join and Enter New Email    ${var_url}    firefox    mellomar225@prometsource.com
+    Go To Join and Enter New Email    ${var_url}    firefox    mellomar230@prometsource.com
     Select Membership Type    Personal    Student Member
     Fill Contact Information And Submit    Mellomar    Otarra    1z2x3c*()
     Fill Address Information And Submit    50 E. Huron St.    Chicago    Illinois    60611
@@ -92,9 +92,20 @@ Donate as Logged in User
     Click Element    xpath=//div[@class='dropdown-menu open']//span[contains(text(),'18')]
     Input Text    edit-commerce-payment-payment-details-credit-card-code    123
     Click Button    edit-continue
-    Wait Until Page Contains    Your order number is
-    Wait Until Page Contains Element    xpath=//a[contains(text(),'Return to the front page.')]
+    Wait Until Page Contains    Thank you for your payment. Please look for an email confirmation shortly.
+    Wait Until Page Contains    Thank you for your order. You should receive an email confirmation shortly.
+    Wait Until Page Contains    Click here to return to www.ala.org
     [Teardown]
+
+Renew as Regular Member
+    Go To Renew And Login    https://ala-shop.prometstaging.com/membership/renew    firefox    1144377    ectest
+    Express Renew Personal
+    Renew Payment    10    Test Test    4111111111111111    12    18    123
+
+Renew as Student Member
+    Go To Renew And Login    https://ala-shop.prometstaging.com/membership/renew    firefox    2058431    ectest
+    Express Renew Personal
+    Renew Payment    10    Test Test    4111111111111111    12    18    123
 
 Regular Member Renew
     [Setup]
@@ -158,6 +169,7 @@ Student Member Renew
 TEST
     Go To Renew And Login    https://ala-shop.prometstaging.com/membership/renew    firefox    1061117    ectest
     Express Renew Personal
+    Renew Payment    10    Test Test    4111111111111111    12    18    123
 
 *** Keywords ***
 CLOSE THIS BROWSER
@@ -304,7 +316,6 @@ Go To Rejoin And Login
     Submit Form
     Sleep    2
     Wait Until Page Contains    Rejoin ALA    15
-    Wait Until Page Contains Element    xpath=//div[@class='membership-renew-link']/a[contains(text(),'Rejoin')]
     Click Element    xpath=//div[@class='membership-renew-link']/a[contains(text(),'Rejoin')]
     Wait Until Page Contains Element    xpath=//h3[contains(text(),'Step')]/span[contains(text(),':')]
     Wait Until Page Contains    Here is your Membership Summary:
@@ -355,6 +366,17 @@ Rejoin Payment
     Click Element    xpath=//div[@class='dropdown-menu open']//span[contains(text(),'${exp_yr}')]
     Input Text    edit-commerce-payment-payment-details-credit-card-code    ${sec_code}
     Click Element    edit-continue
-    Comment    Wait Until Page Contains    Your order number is
-    Comment    Wait Until Element Is Visible    xpath=//a[contains(text(),'Return to the front page.')]
     Wait Until Element Is Visible    xpath=//a[contains(text(),'Continue to membership survey')]
+
+Renew Payment
+    [Arguments]    ${donation}    ${cc_name}    ${cc_num}    ${exp_mo}    ${exp_yr}    ${sec_code}
+    Input Text    edit-commerce-payment-payment-details-credit-card-owner    ${cc_name}
+    Input Text    edit-commerce-payment-payment-details-credit-card-number    ${cc_num}
+    Click Element    xpath=//button/span[contains(text(),'12')]
+    Click Element    xpath=//div[@class='dropdown-menu open']//span[contains(text(),'${exp_mo}')]
+    Click Element    xpath=//button/span[contains(text(),'15')]
+    Click Element    xpath=//div[@class='dropdown-menu open']//span[contains(text(),'${exp_yr}')]
+    Input Text    edit-commerce-payment-payment-details-credit-card-code    ${sec_code}
+    Click Element    edit-continue
+    Wait Until Page Contains    Thank you for your payment. Please look for an email confirmation shortly.
+    Wait Until Page Contains    Click here to return to www.ala.org
