@@ -14,13 +14,13 @@ Rejoin as Organization
     Go To Rejoin And Login    https://ala-shop.prometstaging.com/membership/renew    firefox    0119051    ectest
     Express Renew Organization
     Rejoin Payment    10    Test Test    4111111111111111    12    18    123
-    [Teardown]
+    [Teardown]    CLOSE THIS BROWSER
 
 Rejoin as Personal Member
     Go To Rejoin And Login    https://ala-shop.prometstaging.com/membership/renew    firefox    1182475    ectest
     Express Renew Personal
     Rejoin Payment    10    Test Test    4111111111111111    12    18    123
-    [Teardown]
+    [Teardown]    CLOSE THIS BROWSER
 
 Join as Personal Member - Regular
     Go To Join and Enter New Email    ${var_url}    firefox    mellomar131@prometsource.com
@@ -33,7 +33,7 @@ Join as Personal Member - Regular
     Select Round Table And Submit    New Member Round Table    Exhibits Round Table    Ethnic and Multicultural Information Exchange Round Table    Library Research Round Table    Library History Round Table
     Checkout And Submit    10    Test Test    4111111111111111    12    18    123
     Take Survey and Submit
-    [Teardown]
+    [Teardown]    CLOSE THIS BROWSER
 
 Join as Personal Member - Student
     Go To Join and Enter New Email    ${var_url}    firefox    mellomar230@prometsource.com
@@ -46,7 +46,7 @@ Join as Personal Member - Student
     Select Round Table And Submit    New Member Round Table    Exhibits Round Table    Ethnic and Multicultural Information Exchange Round Table    Library Research Round Table    Library History Round Table
     Checkout And Submit    10    Test Test    4111111111111111    12    18    123
     Take Survey and Submit
-    [Teardown]
+    [Teardown]    CLOSE THIS BROWSER
 
 Donate as Logged in User
     Open Browser    https://ala-shop.prometstaging.com/user    firefox
@@ -95,81 +95,19 @@ Donate as Logged in User
     Wait Until Page Contains    Thank you for your payment. Please look for an email confirmation shortly.
     Wait Until Page Contains    Thank you for your order. You should receive an email confirmation shortly.
     Wait Until Page Contains    Click here to return to www.ala.org
-    [Teardown]
+    [Teardown]    CLOSE THIS BROWSER
 
 Renew as Regular Member
     Go To Renew And Login    https://ala-shop.prometstaging.com/membership/renew    firefox    1144377    ectest
     Express Renew Personal
     Renew Payment    10    Test Test    4111111111111111    12    18    123
+    [Teardown]    CLOSE THIS BROWSER
 
 Renew as Student Member
     Go To Renew And Login    https://ala-shop.prometstaging.com/membership/renew    firefox    2058431    ectest
     Express Renew Personal
     Renew Payment    10    Test Test    4111111111111111    12    18    123
-
-Regular Member Renew
-    [Setup]
-    Open Browser    https://ala-shop.prometstaging.com/membership/renew    firefox
-    Maximize Browser Window
-    Wait Until Page Contains    Renew ALA    15
-    Wait Until Page Contains Element    shib_login_url
-    Click Element    shib_login_url
-    Wait Until Page Contains    Test IDP Login to the ALA Website    15
-    Wait Until Page Contains Element    username
-    Input Text    username    1061117
-    Input Password    password    ectest
-    Submit Form
-    Wait Until Page Contains    Renew your ALA membership    15
-    Wait Until Page Contains Element    xpath=//div[@class='membership-renew-link']
-    Click Element    xpath=//div[@class='membership-renew-link']/a[contains(text(),'Renew')]
-    Wait Until Page Contains    Here is your Membership Summary:
-    Wait Until Page Contains Element    edit-next
-    Click Button    edit-next
-    Wait Until Page Contains    Your Contact Information
-    Wait Until Page Contains Element    edit-next
-    Click Button    edit-next
-    Wait Until Page Contains    Here is your Membership Summary:
-    Input Text    edit-commerce-payment-payment-details-credit-card-owner    Test Test
-    Input Text    edit-commerce-payment-payment-details-credit-card-number    4111111111111111
-    Click Element    xpath=//div/button/span[contains(text(),'15')]
-    Click Element    xpath=//div[@class='dropdown-menu open']//span[contains(text(),'18')]
-    Input Text    edit-commerce-payment-payment-details-credit-card-code    123
-    Click Element    edit-continue
-    Wait Until Page Contains    Your order number is
-    [Teardown]
-
-Student Member Renew
-    Wait Until Page Contains    Renew ALA    15
-    Wait Until Page Contains Element    shib_login_url
-    Click Element    shib_login_url
-    Wait Until Page Contains    Test IDP Login to the ALA Website    15
-    Wait Until Page Contains Element    username
-    Input Text    username    2058387
-    Input Password    password    ectest
-    Submit Form
-    Wait Until Page Contains    Renew your ALA membership    15
-    Wait Until Page Contains Element    xpath=//div[@class='membership-renew-link']
-    Click Element    xpath=//div[@class='membership-renew-link']/a[contains(text(),'Renew')]
-    Wait Until Page Contains    Here is your Membership Summary:
-    Wait Until Page Contains Element    edit-next
-    Click Button    edit-next
-    Wait Until Page Contains    Your Contact Information
-    Wait Until Page Contains Element    edit-next
-    Click Button    edit-next
-    Wait Until Page Contains    Here is your Membership Summary:
-    Input Text    edit-commerce-payment-payment-details-credit-card-owner    Test Test
-    Input Text    edit-commerce-payment-payment-details-credit-card-number    4111111111111111
-    Click Element    xpath=//div/button/span[contains(text(),'15')]
-    Click Element    xpath=//div[@class='dropdown-menu open']//span[contains(text(),'18')]
-    Input Text    edit-commerce-payment-payment-details-credit-card-code    123
-    Click Element    edit-continue
-    Wait Until Page Contains    Your order number is
-    [Teardown]
-
-TEST
-    Go To Renew And Login    https://ala-shop.prometstaging.com/membership/renew    firefox    1061117    ectest
-    Express Renew Personal
-    Renew Payment    10    Test Test    4111111111111111    12    18    123
+    [Teardown]    CLOSE THIS BROWSER
 
 *** Keywords ***
 CLOSE THIS BROWSER
